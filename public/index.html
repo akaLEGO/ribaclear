@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="RibaClear — เปลี่ยนดอกเบี้ย (Riba) ให้เกิดประโยชน์กับสังคม ถูกต้องตามหลักชะรีอะฮ์">
+
+  <!-- Security: CSP -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src https://fonts.gstatic.com;
+             script-src 'self';
+             img-src 'self' data:;
+             connect-src 'none';">
+
+  <!-- No referrer leak -->
+  <meta name="referrer" content="no-referrer">
+
+  <title>RibaClear — กำจัด Riba ให้เป็นประโยชน์</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="phone" role="main">
+
+    <!-- HOME -->
+    <section class="screen active" id="screen-home" aria-label="หน้าหลัก">
+      <div class="home-top">
+        <div class="logo-row" aria-label="RibaClear">
+          <div class="gem" aria-hidden="true"></div>
+          <span class="logo-txt">RibaClear</span>
+        </div>
+        <p class="home-insight">ไม่รู้จะทำยังไง<br>กับดอกเบี้ยที่มี?</p>
+        <h1 class="home-h1">
+          เปลี่ยนดอกเบี้ย<br>
+          <span class="accent">(Riba) ให้เกิด</span><br>
+          ประโยชน์กับสังคม
+        </h1>
+      </div>
+      <div class="home-bottom">
+        <button class="btn-white" id="btn-donate" onclick="App.show('orgs')">
+          บริจาคเลย
+        </button>
+        <button class="btn-ghost-w" onclick="App.show('info')">
+          📖 อ่านข้อมูลเพิ่มเติม
+        </button>
+      </div>
+    </section>
+
+    <!-- ORGS -->
+    <section class="screen" id="screen-orgs" aria-label="เลือกองค์กร">
+      <div class="top-bar">
+        <button class="back-btn" onclick="App.show('home')" aria-label="กลับ">←</button>
+        <div>
+          <div class="bar-title">เลือกองค์กรที่ต้องการบริจาค</div>
+          <div class="bar-sub">ทุกองค์กรรับรองโดยนักวิชาการชะรีอะฮ์</div>
+        </div>
+      </div>
+
+      <div class="orgs-list" role="group" aria-label="รายชื่อองค์กร">
+
+        <div class="section-div"><span>วิธีคลาสสิกที่นิยม</span></div>
+
+        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
+             data-name="สร้างห้องน้ำชุมชน" data-icon="🚽" onclick="App.toggleOrg(this)">
+          <div class="org-icon" aria-hidden="true">🚽</div>
+          <div class="org-info">
+            <div class="org-name">สร้างห้องน้ำชุมชน</div>
+            <div class="org-desc">สุขอนามัยพื้นฐานสำหรับชุมชนห่างไกล</div>
+            <div class="badge-row"><span class="badge bc">ยอดนิยม</span></div>
+          </div>
+          <div class="org-check" aria-hidden="true"></div>
+        </div>
+
+        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
+             data-name="ซ่อมถนนและโครงสร้างพื้นฐาน" data-icon="🛣️" onclick="App.toggleOrg(this)">
+          <div class="org-icon" aria-hidden="true">🛣️</div>
+          <div class="org-info">
+            <div class="org-name">ซ่อมถนนและโครงสร้างพื้นฐาน</div>
+            <div class="org-desc">ทางเข้าหมู่บ้านและสะพานชุมชนมุสลิม</div>
+            <div class="badge-row"><span class="badge bc">ยอดนิยม</span></div>
+          </div>
+          <div class="org-check" aria-hidden="true"></div>
+        </div>
+
+        <div class="section-div"><span>องค์กรใหม่ที่แนะนำ</span></div>
+
+        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
+             data-name="กองทุนปลดหนี้ดอกเบี้ย" data-icon="💸" onclick="App.toggleOrg(this)">
+          <div class="org-icon" aria-hidden="true">💸</div>
+          <div class="org-info">
+            <div class="org-name">กองทุนปลดหนี้ดอกเบี้ย</div>
+            <div class="org-desc">ช่วยครอบครัวมุสลิมหลุดพ้นวงจรหนี้ที่ไม่เป็นธรรม</div>
+            <div class="badge-row"><span class="badge bn">แนะนำ</span><span class="badge bi">ผลกระทบสูง</span></div>
+          </div>
+          <div class="org-check" aria-hidden="true"></div>
+        </div>
+
+        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
+             data-name="ทุนการศึกษาชายแดนใต้" data-icon="🎓" onclick="App.toggleOrg(this)">
+          <div class="org-icon" aria-hidden="true">🎓</div>
+          <div class="org-info">
+            <div class="org-name">ทุนการศึกษาชายแดนใต้</div>
+            <div class="org-desc">อุปกรณ์การเรียนและทุนต่อเนื่องสำหรับเด็ก</div>
+            <div class="badge-row"><span class="badge bn">แนะนำ</span></div>
+          </div>
+          <div class="org-check" aria-hidden="true"></div>
+        </div>
+
+        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
+             data-name="สาธารณสุขฉุกเฉิน" data-icon="🏥" onclick="App.toggleOrg(this)">
+          <div class="org-icon" aria-hidden="true">🏥</div>
+          <div class="org-info">
+            <div class="org-name">สาธารณสุขฉุกเฉิน</div>
+            <div class="org-desc">ค่ารักษาพยาบาลสำหรับครอบครัวที่ขาดแคลน</div>
+            <div class="badge-row"><span class="badge bn">แนะนำ</span><span class="badge bi">ผลกระทบสูง</span></div>
+          </div>
+          <div class="org-check" aria-hidden="true"></div>
+        </div>
+
+        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
+             data-name="ความมั่นคงทางอาหาร" data-icon="🍚" onclick="App.toggleOrg(this)">
+          <div class="org-icon" aria-hidden="true">🍚</div>
+          <div class="org-info">
+            <div class="org-name">ความมั่นคงทางอาหาร</div>
+            <div class="org-desc">อาหารและน้ำสะอาดสำหรับครอบครัวยากจน</div>
+            <div class="badge-row"><span class="badge bn">แนะนำ</span></div>
+          </div>
+          <div class="org-check" aria-hidden="true"></div>
+        </div>
+
+      </div>
+
+      <div class="note-bar" role="note">
+        <div class="note-dot" aria-hidden="true"></div>
+        <span class="note-txt">ค่าธรรมเนียมเก็บจากองค์กรผู้รับ — ดอกเบี้ยของคุณถึงผู้รับเต็มบาท</span>
+      </div>
+
+      <div class="bottom-cta">
+        <button class="btn-main" id="btn-next" disabled onclick="App.goCheckout()">
+          ถัดไป →
+        </button>
+      </div>
+    </section>
+
+    <!-- CHECKOUT -->
+    <section class="screen" id="screen-checkout" aria-label="ชำระเงิน">
+      <div class="top-bar">
+        <button class="back-btn" onclick="App.show('orgs')" aria-label="กลับ">←</button>
+        <div>
+          <div class="bar-title">ชำระเงิน</div>
+          <div class="bar-sub">เลือกจำนวนและวิธีชำระ</div>
+        </div>
+      </div>
+
+      <div class="checkout-body">
+
+        <div class="summary-card">
+          <div class="summary-label">บริจาคให้กับ</div>
+          <div class="summary-orgs" id="summary-orgs"></div>
+          <div id="split-info" hidden>
+            <div class="summary-divider"></div>
+            <div class="summary-split">
+              <span class="split-label">แบ่งเท่าๆ กันทุกองค์กร</span>
+              <span class="split-val" id="split-amt">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="amount-section">
+          <div class="amount-label">ระบุยอดบริจาค (บาท)</div>
+          <div class="amount-wrap">
+            <span class="currency" aria-hidden="true">฿</span>
+            <input class="amount-input" id="amount-input"
+              type="number" inputmode="numeric"
+              placeholder="0" min="1" max="1000000"
+              aria-label="จำนวนเงินบริจาค" autocomplete="off"
+              oninput="App.updateSplit()">
+          </div>
+          <div class="amount-presets" role="group" aria-label="จำนวนเงินที่แนะนำ">
+            <button class="preset" onclick="App.setAmt(100)">100</button>
+            <button class="preset" onclick="App.setAmt(500)">500</button>
+            <button class="preset" onclick="App.setAmt(1000)">1,000</button>
+            <button class="preset" onclick="App.setAmt(2000)">2,000</button>
+          </div>
+        </div>
+
+        <div class="pay-label">วิธีชำระเงิน</div>
+        <div class="pay-methods" role="radiogroup" aria-label="วิธีชำระเงิน">
+
+          <div class="pay-card selected" role="radio" aria-checked="true" tabindex="0"
+               data-method="Thai QR Payment" onclick="App.pickPay(this)">
+            <div class="pay-logo qr-logo" aria-hidden="true">QR</div>
+            <div class="pay-info">
+              <div class="pay-name">Thai QR Payment</div>
+              <div class="pay-detail">สแกน QR ผ่านแอปธนาคารทุกธนาคาร</div>
+            </div>
+            <div class="pay-radio" aria-hidden="true"></div>
+          </div>
+
+          <div class="pay-card" role="radio" aria-checked="false" tabindex="0"
+               data-method="PromptPay" onclick="App.pickPay(this)">
+            <div class="pay-logo pp-logo" aria-hidden="true">PP</div>
+            <div class="pay-info">
+              <div class="pay-name">PromptPay</div>
+              <div class="pay-detail">โอนผ่านเลขพร้อมเพย์ทันที</div>
+            </div>
+            <div class="pay-radio" aria-hidden="true"></div>
+          </div>
+
+          <div class="pay-card" role="radio" aria-checked="false" tabindex="0"
+               data-method="โอนผ่านธนาคาร" onclick="App.pickPay(this)">
+            <div class="pay-logo bank-logo" aria-hidden="true">BBL</div>
+            <div class="pay-info">
+              <div class="pay-name">โอนผ่านธนาคาร</div>
+              <div class="pay-detail">กรุงเทพ · กสิกร · ไทยพาณิชย์ · ออมสิน</div>
+            </div>
+            <div class="pay-radio" aria-hidden="true"></div>
+          </div>
+
+        </div>
+
+        <div class="remark-box" role="note">
+          <span class="remark-icon" aria-hidden="true">✓</span>
+          <span class="remark-txt">
+            คุณบริจาคเต็มจำนวน — ค่าดำเนินการทั้งหมดองค์กรผู้รับเป็นผู้รับผิดชอบ
+          </span>
+        </div>
+
+      </div>
+
+      <div class="confirm-bar">
+        <div class="total-row">
+          <span class="total-label">ยอดรวม</span>
+          <span class="total-amount" id="total-amt" aria-live="polite">฿0</span>
+        </div>
+        <button class="btn-pay" id="btn-pay" onclick="App.goPay()">
+          ยืนยันการบริจาค
+        </button>
+      </div>
+    </section>
+
+    <!-- SUCCESS -->
+    <section class="screen" id="screen-success" aria-label="บริจาคสำเร็จ">
+      <div class="success-ring" aria-hidden="true">
+        <div class="success-check">✓</div>
+      </div>
+      <h2 class="success-title">บริจาคสำเร็จ<br>ขอบคุณ</h2>
+      <p class="success-sub">
+        ดอกเบี้ย (Riba) ของคุณถูกส่งต่อ<br>เพื่อสร้างการเปลี่ยนแปลงแล้ว
+      </p>
+      <div class="success-amount" id="success-amt" aria-live="polite">฿0</div>
+      <div class="success-to" id="success-to">—</div>
+
+      <div class="receipt-card" role="region" aria-label="ใบเสร็จ">
+        <div class="rc-row">
+          <span class="rc-label">เลขที่ทำรายการ</span>
+          <span class="rc-val" id="rc-ref">—</span>
+        </div>
+        <div class="rc-row">
+          <span class="rc-label">วันที่</span>
+          <span class="rc-val" id="rc-date">—</span>
+        </div>
+        <div class="rc-row">
+          <span class="rc-label">วิธีชำระ</span>
+          <span class="rc-val" id="rc-method">—</span>
+        </div>
+        <div class="rc-row">
+          <span class="rc-label">สถานะ</span>
+          <span class="rc-val rc-success">สำเร็จ ✓</span>
+        </div>
+      </div>
+
+      <button class="btn-home" onclick="App.reset()">กลับหน้าหลัก</button>
+    </section>
+
+    <!-- INFO -->
+    <section class="screen" id="screen-info" aria-label="ข้อมูลเพิ่มเติม">
+      <div class="top-bar">
+        <button class="back-btn" onclick="App.show('home')" aria-label="กลับ">←</button>
+        <div class="bar-title">Riba คืออะไร?</div>
+      </div>
+      <div class="info-content">
+        <div class="info-block">
+          <h2 class="info-h">Riba คือดอกเบี้ย</h2>
+          <p class="info-p">ในหลักอิสลาม การรับดอกเบี้ยจากธนาคารเป็นสิ่งต้องห้าม (Haram) แต่มุสลิมที่มีบัญชีธนาคารทั่วไปก็หลีกเลี่ยงไม่ได้ที่จะได้รับดอกเบี้ย</p>
+        </div>
+        <div class="info-divider"></div>
+        <div class="info-block">
+          <h2 class="info-h">Riba ใช้ทำอะไรได้บ้าง?</h2>
+          <div class="rule-row">
+            <span class="rule-label rule-ok">ทำได้</span>
+            <span class="rule-txt">ปลดหนี้, ช่วยคนยากจน, สาธารณสุข, การศึกษา, ถนน, ห้องน้ำ, สาธารณูปโภค</span>
+          </div>
+          <div class="rule-row">
+            <span class="rule-label rule-no">ทำไม่ได้</span>
+            <span class="rule-txt">สร้างมัสยิด, พิมพ์อัลกุรอาน, ใช้ประโยชน์ส่วนตัว</span>
+          </div>
+        </div>
+        <div class="info-divider"></div>
+        <div class="info-block">
+          <h2 class="info-h">การบริจาค Riba ได้บุญไหม?</h2>
+          <p class="info-p">ไม่นับเป็นบุญทางศาสนา แต่เป็นการกำจัดเงิน Haram ออกจากชีวิตอย่างถูกต้อง ซึ่งเป็นสิ่งที่พึงกระทำ</p>
+        </div>
+        <div class="info-divider"></div>
+        <div class="info-block">
+          <h2 class="info-h">ค่าธรรมเนียม</h2>
+          <p class="info-p">RibaClear เก็บค่าธรรมเนียมจากองค์กรผู้รับ ไม่ใช่จากผู้บริจาค เงินของคุณถึงองค์กรเต็มจำนวน</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /phone -->
+
+  <script src="app.js"></script>
+</body>
+</html>
