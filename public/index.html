@@ -3,318 +3,402 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="description" content="RibaClear — เปลี่ยนดอกเบี้ย (Riba) ให้เกิดประโยชน์กับสังคม ถูกต้องตามหลักชะรีอะฮ์">
-
-  <!-- Security: CSP -->
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self';
-             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-             font-src https://fonts.gstatic.com;
-             script-src 'self';
-             img-src 'self' data:;
-             connect-src 'none';">
-
-  <!-- No referrer leak -->
+  <meta name="description" content="เคลียร์ดอกเบี้ย (Riba) ให้เป็นประโยชน์กับสังคม ถูกต้องตามหลักชะรีอะฮ์ โปร่งใสทุกบาท">
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://ribaclear.vercel.app/">
+  <meta property="og:title"       content="RibaClear — เคลียร์ดอกเบี้ย (Riba) ให้เป็นประโยชน์">
+  <meta property="og:description" content="ส่งต่อดอกเบี้ย (Riba) ในบัญชีธนาคารของคุณให้กับองค์กรที่ถูกต้อง โปร่งใสทุกบาท ถูกต้องตามหลักชะรีอะฮ์">
+  <meta property="og:locale"      content="th_TH">
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="RibaClear — เคลียร์ดอกเบี้ย (Riba) ให้เป็นประโยชน์">
+  <meta name="twitter:description" content="ส่งต่อดอกเบี้ย (Riba) ในบัญชีธนาคารของคุณให้กับองค์กรที่ถูกต้อง โปร่งใสทุกบาท">
   <meta name="referrer" content="no-referrer">
-
-  <title>RibaClear — กำจัด Riba ให้เป็นประโยชน์</title>
+  <title>RibaClear — เคลียร์ดอกเบี้ย (Riba) ให้เป็นประโยชน์</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --forest:#0D3B2E;--sage:#2EC27E;--honey:#C9A94A;
+  --white:#ffffff;--ink:#0a0a0a;--muted:#6b7280;
+  --line:#e4e0d6;--bg:#f9f9f7;--rlg:14px;--rxl:20px;
+}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#e8e4da;display:flex;align-items:center;justify-content:center;min-height:100svh;padding:20px 0}
+.phone{width:100%;max-width:390px;background:var(--forest);border-radius:var(--rxl);overflow:hidden;min-height:680px;box-shadow:0 32px 80px rgba(0,0,0,.28)}
+@media(max-width:430px){body{padding:0;background:var(--forest)}.phone{border-radius:0;min-height:100svh;box-shadow:none}}
+.screen{display:none;flex-direction:column;min-height:680px}
+.screen.active{display:flex}
+@media(max-width:430px){.screen{min-height:100svh}}
+
+#screen-home{background:var(--forest);padding:52px 28px 40px;justify-content:space-between}
+.home-top{flex:1;display:flex;flex-direction:column;justify-content:center}
+.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:56px}
+.gem{width:10px;height:10px;background:var(--honey);border-radius:50%}
+.logo-txt{font-size:15px;font-weight:500;color:rgba(255,255,255,.6)}
+.home-insight{font-size:15px;color:rgba(255,255,255,.45);line-height:1.65;margin-bottom:16px;font-style:italic}
+.home-h1{font-family:'Lora',Georgia,serif;font-size:clamp(26px,8vw,32px);font-weight:700;color:var(--white);line-height:1.16;letter-spacing:-.3px}
+.accent{color:var(--sage)}
+.home-bottom{display:flex;flex-direction:column;gap:10px}
+.btn-white{background:var(--white);color:var(--forest);padding:16px;border-radius:100px;border:none;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;cursor:pointer;width:100%}
+.btn-white:active{opacity:.88}
+.btn-ghost-w{background:transparent;color:rgba(255,255,255,.8);padding:14px;border-radius:100px;border:1px solid rgba(255,255,255,.28);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;width:100%}
+
+.top-bar{padding:18px 18px 14px;border-bottom:0.5px solid rgba(0,0,0,.08);display:flex;align-items:center;gap:12px;background:var(--white);flex-shrink:0}
+.back-btn{width:34px;height:34px;border-radius:50%;background:var(--bg);border:0.5px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;color:var(--muted);flex-shrink:0}
+.bar-title{font-size:15px;font-weight:500;color:var(--ink)}
+.bar-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+#screen-orgs{background:var(--white);overflow:hidden}
+.section-div{display:flex;align-items:center;gap:8px;padding:10px 14px 4px;flex-shrink:0}
+.section-div span{font-size:11px;color:var(--muted);white-space:nowrap}
+.section-div::after{content:'';flex:1;height:0.5px;background:var(--line)}
+.orgs-list{flex:1;padding:6px 14px 10px;display:flex;flex-direction:column;gap:7px;overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0}
+.org-card{background:var(--white);border:0.5px solid var(--line);border-radius:var(--rlg);padding:13px;cursor:pointer;display:flex;gap:11px;align-items:center;user-select:none;flex-shrink:0}
+.org-card.selected{border:1.5px solid var(--forest);background:rgba(13,59,46,.03)}
+.org-icon{width:40px;height:40px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.org-info{flex:1;min-width:0}
+.org-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.org-desc{font-size:11px;color:var(--muted);line-height:1.4}
+.badge-row{display:flex;gap:5px;margin-top:4px;flex-wrap:wrap}
+.badge{font-size:10px;border-radius:100px;padding:2px 8px;font-weight:500}
+.bc{background:#E1F5EE;color:#0F6E56}.bn{background:#FAEEDA;color:#854F0B}.bi{background:#E6F1FB;color:#185FA5}
+.org-check{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.org-card.selected .org-check{background:var(--forest);border-color:var(--forest)}
+.org-card.selected .org-check::after{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--white)}
+/* pinned bottom bar — orgs */
+.orgs-footer{flex-shrink:0;background:var(--white);border-top:0.5px solid var(--line)}
+.note-bar{margin:10px 14px 6px;background:var(--bg);border-radius:10px;padding:10px 12px;display:flex;align-items:flex-start;gap:8px}
+.note-dot{width:6px;height:6px;background:var(--sage);border-radius:50%;flex-shrink:0;margin-top:4px}
+.note-txt{font-size:11px;color:var(--muted);line-height:1.5}
+.bottom-cta{padding:6px 14px 28px}
+.btn-main{background:var(--forest);color:var(--white);padding:15px;border-radius:100px;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;width:100%;opacity:.32;pointer-events:none}
+.btn-main:not([disabled]){opacity:1;pointer-events:auto}
+
+#screen-checkout{background:var(--white);overflow:hidden}
+.checkout-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 0;min-height:0}
+.summary-card{background:var(--bg);border-radius:var(--rlg);padding:16px;margin-bottom:14px}
+.summary-label{font-size:11px;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px}
+.summary-orgs{display:flex;flex-direction:column;gap:7px}
+.summary-org{display:flex;align-items:center;gap:9px}
+.s-icon{font-size:15px;width:28px;height:28px;background:var(--white);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:0.5px solid var(--line)}
+.s-name{font-size:13px;color:var(--ink)}
+.summary-divider{height:0.5px;background:var(--line);margin:12px 0}
+.summary-split{display:flex;justify-content:space-between}
+.split-label{font-size:12px;color:var(--muted)}
+.split-val{font-size:12px;color:#0F6E56;font-weight:500}
+.amount-section{margin-bottom:14px}
+.amount-label{font-size:12px;color:var(--muted);margin-bottom:8px}
+.amount-wrap{background:var(--white);border:1px solid #d1cdc4;border-radius:var(--rlg);padding:13px 16px;display:flex;align-items:center;gap:8px}
+.amount-wrap:focus-within{border-color:var(--forest)}
+.currency{font-size:20px;font-weight:500;color:var(--muted)}
+.amount-input{flex:1;font-size:clamp(18px,6vw,28px);font-weight:500;color:var(--ink);border:none;background:transparent;font-family:'DM Sans',sans-serif;outline:none;width:100%}
+.amount-input::-webkit-outer-spin-button,.amount-input::-webkit-inner-spin-button{-webkit-appearance:none}
+.amount-input[type=number]{-moz-appearance:textfield}
+.amount-presets{display:flex;gap:7px;margin-top:8px}
+.preset{flex:1;padding:7px 4px;border-radius:100px;border:0.5px solid var(--line);font-size:12px;font-weight:500;color:var(--muted);background:var(--white);cursor:pointer;font-family:'DM Sans',sans-serif}
+.preset.picked{background:var(--forest);color:var(--white);border-color:var(--forest)}
+.pay-label{font-size:12px;color:var(--muted);margin-bottom:10px}
+.pay-methods{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.pay-card{background:var(--white);border:0.5px solid var(--line);border-radius:var(--rlg);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.pay-card.selected{border:1.5px solid var(--forest)}
+.pay-logo{width:44px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;color:var(--white)}
+.qr-logo{background:var(--forest)}.pp-logo{background:#6B21A8}.bank-logo{background:#1A56A0}
+.base-logo{background:#0052FF}.celo-logo{background:#35D07F;color:#1a1a1a}
+.pay-info{flex:1}
+.pay-name{font-size:14px;font-weight:500;color:var(--ink)}
+.pay-detail{font-size:11px;color:var(--muted);margin-top:2px}
+.pay-radio{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.pay-card.selected .pay-radio{border-color:var(--forest);background:var(--forest)}
+.pay-card.selected .pay-radio::after{content:'';width:6px;height:6px;background:var(--white);border-radius:50%;display:block}
+.remark-box{display:flex;align-items:flex-start;gap:9px;background:#E1F5EE;border-radius:10px;padding:11px 13px;margin-bottom:16px;border:0.5px solid #9FE1CB}
+.remark-icon{font-size:13px;flex-shrink:0;margin-top:1px}
+.remark-txt{font-size:12px;color:#085041;line-height:1.55}
+.confirm-bar{padding:12px 16px 28px;border-top:0.5px solid var(--line);background:var(--white);flex-shrink:0}
+.total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.total-label{font-size:12px;color:var(--muted)}
+.total-amount{font-size:22px;font-weight:500;color:var(--ink)}
+.btn-pay{background:var(--forest);color:var(--white);padding:15px;border-radius:100px;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;width:100%}
+.btn-pay:active{opacity:.85}
+
+#screen-success{background:var(--forest);align-items:center;justify-content:center;padding:44px 32px 48px;text-align:center}
+.success-ring{width:84px;height:84px;border-radius:50%;border:2px solid rgba(46,194,126,.35);display:flex;align-items:center;justify-content:center;margin-bottom:28px}
+.success-check{width:58px;height:58px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--white);font-weight:500}
+.success-title{font-family:'Lora',serif;font-size:28px;font-weight:700;color:var(--white);margin-bottom:12px;line-height:1.18}
+.success-sub{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:28px;max-width:260px}
+.success-amount{font-family:'Lora',serif;font-size:38px;font-weight:700;color:var(--sage);margin-bottom:6px}
+.success-to{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:32px}
+.receipt-card{width:100%;background:rgba(255,255,255,.07);border:0.5px solid rgba(255,255,255,.12);border-radius:var(--rlg);padding:16px;margin-bottom:28px;text-align:left}
+.rc-row{display:flex;justify-content:space-between;padding:5px 0}
+.rc-label{font-size:12px;color:rgba(255,255,255,.4)}
+.rc-val{font-size:12px;color:rgba(255,255,255,.8);font-weight:500}
+.rc-success{color:var(--sage)!important}
+.btn-home{background:rgba(255,255,255,.1);color:var(--white);padding:14px;border-radius:100px;border:0.5px solid rgba(255,255,255,.2);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;width:100%}
+
+#screen-info{background:var(--white);overflow:hidden}
+.info-content{flex:1;padding:20px 18px;display:flex;flex-direction:column;gap:18px;overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0}
+.info-h{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:8px}
+.info-p{font-size:13px;color:var(--muted);line-height:1.68}
+.info-divider{height:0.5px;background:var(--line)}
+.rule-row{display:flex;gap:9px;align-items:flex-start;margin-top:8px}
+.rule-label{font-size:11px;font-weight:500;padding:3px 9px;border-radius:100px;flex-shrink:0;margin-top:1px}
+.rule-ok{background:#E1F5EE;color:#0F6E56}
+.rule-no{background:#FAECE7;color:#993C1D}
+.rule-txt{font-size:13px;color:var(--muted);line-height:1.55}
+</style>
 </head>
 <body>
+<div class="phone">
 
-  <div class="phone" role="main">
+  <section class="screen active" id="screen-home">
+    <div class="home-top">
+      <div class="logo-row"><div class="gem"></div><span class="logo-txt">RibaClear</span></div>
+      <p class="home-insight">ไม่รู้จะทำยังไง<br>กับดอกเบี้ยที่มี?</p>
+      <h1 class="home-h1">เคลียร์ดอกเบี้ย<br><span class="accent">(Riba) ให้เป็น</span><br>ประโยชน์กับสังคม</h1>
+    </div>
+    <div class="home-bottom">
+      <button class="btn-white" id="btn-donate">บริจาคเลย</button>
+      <button class="btn-ghost-w" id="btn-info">📖 อ่านข้อมูลเพิ่มเติม</button>
+    </div>
+  </section>
 
-    <!-- HOME -->
-    <section class="screen active" id="screen-home" aria-label="หน้าหลัก">
-      <div class="home-top">
-        <div class="logo-row" aria-label="RibaClear">
-          <div class="gem" aria-hidden="true"></div>
-          <span class="logo-txt">RibaClear</span>
-        </div>
-        <p class="home-insight">ไม่รู้จะทำยังไง<br>กับดอกเบี้ยที่มี?</p>
-        <h1 class="home-h1">
-          เปลี่ยนดอกเบี้ย<br>
-          <span class="accent">(Riba) ให้เกิด</span><br>
-          ประโยชน์กับสังคม
-        </h1>
+  <section class="screen" id="screen-orgs">
+    <div class="top-bar">
+      <button class="back-btn" id="back-orgs">←</button>
+      <div><div class="bar-title">เลือกองค์กรที่ต้องการบริจาค</div><div class="bar-sub">ทุกองค์กรรับรองโดยนักวิชาการชะรีอะฮ์</div></div>
+    </div>
+    <div class="orgs-list">
+      <div class="section-div"><span>วิธีคลาสสิกที่นิยม</span></div>
+      <div class="org-card" data-name="สร้างห้องน้ำชุมชน" data-icon="🚽">
+        <div class="org-icon">🚽</div>
+        <div class="org-info"><div class="org-name">สร้างห้องน้ำชุมชน</div><div class="org-desc">สุขอนามัยพื้นฐานสำหรับชุมชนห่างไกล</div><div class="badge-row"><span class="badge bc">ยอดนิยม</span></div></div>
+        <div class="org-check"></div>
       </div>
-      <div class="home-bottom">
-        <button class="btn-white" id="btn-donate" onclick="App.show('orgs')">
-          บริจาคเลย
-        </button>
-        <button class="btn-ghost-w" onclick="App.show('info')">
-          📖 อ่านข้อมูลเพิ่มเติม
-        </button>
+      <div class="org-card" data-name="ซ่อมถนนและโครงสร้างพื้นฐาน" data-icon="🛣️">
+        <div class="org-icon">🛣️</div>
+        <div class="org-info"><div class="org-name">ซ่อมถนนและโครงสร้างพื้นฐาน</div><div class="org-desc">ทางเข้าหมู่บ้านและสะพานชุมชนมุสลิม</div><div class="badge-row"><span class="badge bc">ยอดนิยม</span></div></div>
+        <div class="org-check"></div>
       </div>
-    </section>
-
-    <!-- ORGS -->
-    <section class="screen" id="screen-orgs" aria-label="เลือกองค์กร">
-      <div class="top-bar">
-        <button class="back-btn" onclick="App.show('home')" aria-label="กลับ">←</button>
-        <div>
-          <div class="bar-title">เลือกองค์กรที่ต้องการบริจาค</div>
-          <div class="bar-sub">ทุกองค์กรรับรองโดยนักวิชาการชะรีอะฮ์</div>
-        </div>
+      <div class="section-div"><span>องค์กรใหม่ที่แนะนำ</span></div>
+      <div class="org-card" data-name="กองทุนปลดหนี้ดอกเบี้ย" data-icon="💸">
+        <div class="org-icon">💸</div>
+        <div class="org-info"><div class="org-name">กองทุนปลดหนี้ดอกเบี้ย</div><div class="org-desc">ช่วยครอบครัวมุสลิมหลุดพ้นวงจรหนี้ที่ไม่เป็นธรรม</div><div class="badge-row"><span class="badge bn">แนะนำ</span><span class="badge bi">ผลกระทบสูง</span></div></div>
+        <div class="org-check"></div>
       </div>
-
-      <div class="orgs-list" role="group" aria-label="รายชื่อองค์กร">
-
-        <div class="section-div"><span>วิธีคลาสสิกที่นิยม</span></div>
-
-        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
-             data-name="สร้างห้องน้ำชุมชน" data-icon="🚽" onclick="App.toggleOrg(this)">
-          <div class="org-icon" aria-hidden="true">🚽</div>
-          <div class="org-info">
-            <div class="org-name">สร้างห้องน้ำชุมชน</div>
-            <div class="org-desc">สุขอนามัยพื้นฐานสำหรับชุมชนห่างไกล</div>
-            <div class="badge-row"><span class="badge bc">ยอดนิยม</span></div>
-          </div>
-          <div class="org-check" aria-hidden="true"></div>
-        </div>
-
-        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
-             data-name="ซ่อมถนนและโครงสร้างพื้นฐาน" data-icon="🛣️" onclick="App.toggleOrg(this)">
-          <div class="org-icon" aria-hidden="true">🛣️</div>
-          <div class="org-info">
-            <div class="org-name">ซ่อมถนนและโครงสร้างพื้นฐาน</div>
-            <div class="org-desc">ทางเข้าหมู่บ้านและสะพานชุมชนมุสลิม</div>
-            <div class="badge-row"><span class="badge bc">ยอดนิยม</span></div>
-          </div>
-          <div class="org-check" aria-hidden="true"></div>
-        </div>
-
-        <div class="section-div"><span>องค์กรใหม่ที่แนะนำ</span></div>
-
-        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
-             data-name="กองทุนปลดหนี้ดอกเบี้ย" data-icon="💸" onclick="App.toggleOrg(this)">
-          <div class="org-icon" aria-hidden="true">💸</div>
-          <div class="org-info">
-            <div class="org-name">กองทุนปลดหนี้ดอกเบี้ย</div>
-            <div class="org-desc">ช่วยครอบครัวมุสลิมหลุดพ้นวงจรหนี้ที่ไม่เป็นธรรม</div>
-            <div class="badge-row"><span class="badge bn">แนะนำ</span><span class="badge bi">ผลกระทบสูง</span></div>
-          </div>
-          <div class="org-check" aria-hidden="true"></div>
-        </div>
-
-        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
-             data-name="ทุนการศึกษาชายแดนใต้" data-icon="🎓" onclick="App.toggleOrg(this)">
-          <div class="org-icon" aria-hidden="true">🎓</div>
-          <div class="org-info">
-            <div class="org-name">ทุนการศึกษาชายแดนใต้</div>
-            <div class="org-desc">อุปกรณ์การเรียนและทุนต่อเนื่องสำหรับเด็ก</div>
-            <div class="badge-row"><span class="badge bn">แนะนำ</span></div>
-          </div>
-          <div class="org-check" aria-hidden="true"></div>
-        </div>
-
-        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
-             data-name="สาธารณสุขฉุกเฉิน" data-icon="🏥" onclick="App.toggleOrg(this)">
-          <div class="org-icon" aria-hidden="true">🏥</div>
-          <div class="org-info">
-            <div class="org-name">สาธารณสุขฉุกเฉิน</div>
-            <div class="org-desc">ค่ารักษาพยาบาลสำหรับครอบครัวที่ขาดแคลน</div>
-            <div class="badge-row"><span class="badge bn">แนะนำ</span><span class="badge bi">ผลกระทบสูง</span></div>
-          </div>
-          <div class="org-check" aria-hidden="true"></div>
-        </div>
-
-        <div class="org-card" role="checkbox" aria-checked="false" tabindex="0"
-             data-name="ความมั่นคงทางอาหาร" data-icon="🍚" onclick="App.toggleOrg(this)">
-          <div class="org-icon" aria-hidden="true">🍚</div>
-          <div class="org-info">
-            <div class="org-name">ความมั่นคงทางอาหาร</div>
-            <div class="org-desc">อาหารและน้ำสะอาดสำหรับครอบครัวยากจน</div>
-            <div class="badge-row"><span class="badge bn">แนะนำ</span></div>
-          </div>
-          <div class="org-check" aria-hidden="true"></div>
-        </div>
-
+      <div class="org-card" data-name="ทุนการศึกษาชายแดนใต้" data-icon="🎓">
+        <div class="org-icon">🎓</div>
+        <div class="org-info"><div class="org-name">ทุนการศึกษาชายแดนใต้</div><div class="org-desc">อุปกรณ์การเรียนและทุนต่อเนื่องสำหรับเด็ก</div><div class="badge-row"><span class="badge bn">แนะนำ</span></div></div>
+        <div class="org-check"></div>
       </div>
-
-      <div class="note-bar" role="note">
-        <div class="note-dot" aria-hidden="true"></div>
-        <span class="note-txt">ค่าธรรมเนียมเก็บจากองค์กรผู้รับ — ดอกเบี้ยของคุณถึงผู้รับเต็มบาท</span>
+      <div class="org-card" data-name="สาธารณสุขฉุกเฉิน" data-icon="🏥">
+        <div class="org-icon">🏥</div>
+        <div class="org-info"><div class="org-name">สาธารณสุขฉุกเฉิน</div><div class="org-desc">ค่ารักษาพยาบาลสำหรับครอบครัวที่ขาดแคลน</div><div class="badge-row"><span class="badge bn">แนะนำ</span><span class="badge bi">ผลกระทบสูง</span></div></div>
+        <div class="org-check"></div>
       </div>
-
-      <div class="bottom-cta">
-        <button class="btn-main" id="btn-next" disabled onclick="App.goCheckout()">
-          ถัดไป →
-        </button>
+      <div class="org-card" data-name="ความมั่นคงทางอาหาร" data-icon="🍚">
+        <div class="org-icon">🍚</div>
+        <div class="org-info"><div class="org-name">ความมั่นคงทางอาหาร</div><div class="org-desc">อาหารและน้ำสะอาดสำหรับครอบครัวยากจน</div><div class="badge-row"><span class="badge bn">แนะนำ</span></div></div>
+        <div class="org-check"></div>
       </div>
-    </section>
+    </div>
+    <div class="orgs-footer">
+      <div class="note-bar">
+        <div class="note-dot"></div>
+        <span class="note-txt">ค่าธรรมเนียมเก็บจากองค์กรผู้รับ — ดอกเบี้ย (Riba) ของคุณถึงผู้รับเต็มทุกบาททุกสตางค์</span>
+      </div>
+      <div class="bottom-cta"><button class="btn-main" id="btn-next" disabled>ถัดไป →</button></div>
+    </div>
+  </section>
 
-    <!-- CHECKOUT -->
-    <section class="screen" id="screen-checkout" aria-label="ชำระเงิน">
-      <div class="top-bar">
-        <button class="back-btn" onclick="App.show('orgs')" aria-label="กลับ">←</button>
-        <div>
-          <div class="bar-title">ชำระเงิน</div>
-          <div class="bar-sub">เลือกจำนวนและวิธีชำระ</div>
+  <section class="screen" id="screen-checkout">
+    <div class="top-bar">
+      <button class="back-btn" id="back-checkout">←</button>
+      <div><div class="bar-title">ชำระเงิน</div><div class="bar-sub">เลือกจำนวนและวิธีชำระ</div></div>
+    </div>
+    <div class="checkout-body">
+      <div class="summary-card">
+        <div class="summary-label">บริจาคให้กับ</div>
+        <div class="summary-orgs" id="summary-orgs"></div>
+        <div id="split-info" hidden>
+          <div class="summary-divider"></div>
+          <div class="summary-split"><span class="split-label">แบ่งเท่าๆ กันทุกองค์กร</span><span class="split-val" id="split-amt">—</span></div>
         </div>
       </div>
-
-      <div class="checkout-body">
-
-        <div class="summary-card">
-          <div class="summary-label">บริจาคให้กับ</div>
-          <div class="summary-orgs" id="summary-orgs"></div>
-          <div id="split-info" hidden>
-            <div class="summary-divider"></div>
-            <div class="summary-split">
-              <span class="split-label">แบ่งเท่าๆ กันทุกองค์กร</span>
-              <span class="split-val" id="split-amt">—</span>
-            </div>
-          </div>
+      <div class="amount-section">
+        <div class="amount-label">ระบุยอดบริจาค (บาท)</div>
+        <div class="amount-wrap">
+          <span class="currency">฿</span>
+          <input class="amount-input" id="amount-input" type="number" inputmode="numeric" placeholder="0" min="1" max="1000000" autocomplete="off">
         </div>
-
-        <div class="amount-section">
-          <div class="amount-label">ระบุยอดบริจาค (บาท)</div>
-          <div class="amount-wrap">
-            <span class="currency" aria-hidden="true">฿</span>
-            <input class="amount-input" id="amount-input"
-              type="number" inputmode="numeric"
-              placeholder="0" min="1" max="1000000"
-              aria-label="จำนวนเงินบริจาค" autocomplete="off"
-              oninput="App.updateSplit()">
-          </div>
-          <div class="amount-presets" role="group" aria-label="จำนวนเงินที่แนะนำ">
-            <button class="preset" onclick="App.setAmt(100)">100</button>
-            <button class="preset" onclick="App.setAmt(500)">500</button>
-            <button class="preset" onclick="App.setAmt(1000)">1,000</button>
-            <button class="preset" onclick="App.setAmt(2000)">2,000</button>
-          </div>
-        </div>
-
-        <div class="pay-label">วิธีชำระเงิน</div>
-        <div class="pay-methods" role="radiogroup" aria-label="วิธีชำระเงิน">
-
-          <div class="pay-card selected" role="radio" aria-checked="true" tabindex="0"
-               data-method="Thai QR Payment" onclick="App.pickPay(this)">
-            <div class="pay-logo qr-logo" aria-hidden="true">QR</div>
-            <div class="pay-info">
-              <div class="pay-name">Thai QR Payment</div>
-              <div class="pay-detail">สแกน QR ผ่านแอปธนาคารทุกธนาคาร</div>
-            </div>
-            <div class="pay-radio" aria-hidden="true"></div>
-          </div>
-
-          <div class="pay-card" role="radio" aria-checked="false" tabindex="0"
-               data-method="PromptPay" onclick="App.pickPay(this)">
-            <div class="pay-logo pp-logo" aria-hidden="true">PP</div>
-            <div class="pay-info">
-              <div class="pay-name">PromptPay</div>
-              <div class="pay-detail">โอนผ่านเลขพร้อมเพย์ทันที</div>
-            </div>
-            <div class="pay-radio" aria-hidden="true"></div>
-          </div>
-
-          <div class="pay-card" role="radio" aria-checked="false" tabindex="0"
-               data-method="โอนผ่านธนาคาร" onclick="App.pickPay(this)">
-            <div class="pay-logo bank-logo" aria-hidden="true">BBL</div>
-            <div class="pay-info">
-              <div class="pay-name">โอนผ่านธนาคาร</div>
-              <div class="pay-detail">กรุงเทพ · กสิกร · ไทยพาณิชย์ · ออมสิน</div>
-            </div>
-            <div class="pay-radio" aria-hidden="true"></div>
-          </div>
-
-        </div>
-
-        <div class="remark-box" role="note">
-          <span class="remark-icon" aria-hidden="true">✓</span>
-          <span class="remark-txt">
-            คุณบริจาคเต็มจำนวน — ค่าดำเนินการทั้งหมดองค์กรผู้รับเป็นผู้รับผิดชอบ
-          </span>
-        </div>
-
-      </div>
-
-      <div class="confirm-bar">
-        <div class="total-row">
-          <span class="total-label">ยอดรวม</span>
-          <span class="total-amount" id="total-amt" aria-live="polite">฿0</span>
-        </div>
-        <button class="btn-pay" id="btn-pay" onclick="App.goPay()">
-          ยืนยันการบริจาค
-        </button>
-      </div>
-    </section>
-
-    <!-- SUCCESS -->
-    <section class="screen" id="screen-success" aria-label="บริจาคสำเร็จ">
-      <div class="success-ring" aria-hidden="true">
-        <div class="success-check">✓</div>
-      </div>
-      <h2 class="success-title">บริจาคสำเร็จ<br>ขอบคุณ</h2>
-      <p class="success-sub">
-        ดอกเบี้ย (Riba) ของคุณถูกส่งต่อ<br>เพื่อสร้างการเปลี่ยนแปลงแล้ว
-      </p>
-      <div class="success-amount" id="success-amt" aria-live="polite">฿0</div>
-      <div class="success-to" id="success-to">—</div>
-
-      <div class="receipt-card" role="region" aria-label="ใบเสร็จ">
-        <div class="rc-row">
-          <span class="rc-label">เลขที่ทำรายการ</span>
-          <span class="rc-val" id="rc-ref">—</span>
-        </div>
-        <div class="rc-row">
-          <span class="rc-label">วันที่</span>
-          <span class="rc-val" id="rc-date">—</span>
-        </div>
-        <div class="rc-row">
-          <span class="rc-label">วิธีชำระ</span>
-          <span class="rc-val" id="rc-method">—</span>
-        </div>
-        <div class="rc-row">
-          <span class="rc-label">สถานะ</span>
-          <span class="rc-val rc-success">สำเร็จ ✓</span>
+        <div class="amount-presets">
+          <button class="preset" data-val="100">100</button>
+          <button class="preset" data-val="500">500</button>
+          <button class="preset" data-val="1000">1,000</button>
+          <button class="preset" data-val="2000">2,000</button>
         </div>
       </div>
-
-      <button class="btn-home" onclick="App.reset()">กลับหน้าหลัก</button>
-    </section>
-
-    <!-- INFO -->
-    <section class="screen" id="screen-info" aria-label="ข้อมูลเพิ่มเติม">
-      <div class="top-bar">
-        <button class="back-btn" onclick="App.show('home')" aria-label="กลับ">←</button>
-        <div class="bar-title">Riba คืออะไร?</div>
-      </div>
-      <div class="info-content">
-        <div class="info-block">
-          <h2 class="info-h">Riba คือดอกเบี้ย</h2>
-          <p class="info-p">ในหลักอิสลาม การรับดอกเบี้ยจากธนาคารเป็นสิ่งต้องห้าม (Haram) แต่มุสลิมที่มีบัญชีธนาคารทั่วไปก็หลีกเลี่ยงไม่ได้ที่จะได้รับดอกเบี้ย</p>
+      <div class="pay-label">วิธีชำระเงิน</div>
+      <div class="pay-methods">
+        <div class="pay-card selected" data-method="Thai QR Payment">
+          <div class="pay-logo qr-logo">QR</div>
+          <div class="pay-info"><div class="pay-name">Thai QR Payment</div><div class="pay-detail">สแกน QR ผ่านแอปธนาคารทุกธนาคาร</div></div>
+          <div class="pay-radio"></div>
         </div>
-        <div class="info-divider"></div>
-        <div class="info-block">
-          <h2 class="info-h">Riba ใช้ทำอะไรได้บ้าง?</h2>
-          <div class="rule-row">
-            <span class="rule-label rule-ok">ทำได้</span>
-            <span class="rule-txt">ปลดหนี้, ช่วยคนยากจน, สาธารณสุข, การศึกษา, ถนน, ห้องน้ำ, สาธารณูปโภค</span>
-          </div>
-          <div class="rule-row">
-            <span class="rule-label rule-no">ทำไม่ได้</span>
-            <span class="rule-txt">สร้างมัสยิด, พิมพ์อัลกุรอาน, ใช้ประโยชน์ส่วนตัว</span>
-          </div>
+        <div class="pay-card" data-method="PromptPay">
+          <div class="pay-logo pp-logo">PP</div>
+          <div class="pay-info"><div class="pay-name">PromptPay</div><div class="pay-detail">โอนผ่านเลขพร้อมเพย์ทันที</div></div>
+          <div class="pay-radio"></div>
         </div>
-        <div class="info-divider"></div>
-        <div class="info-block">
-          <h2 class="info-h">การบริจาค Riba ได้บุญไหม?</h2>
-          <p class="info-p">ไม่นับเป็นบุญทางศาสนา แต่เป็นการกำจัดเงิน Haram ออกจากชีวิตอย่างถูกต้อง ซึ่งเป็นสิ่งที่พึงกระทำ</p>
+        <div class="pay-card" data-method="โอนผ่านธนาคาร">
+          <div class="pay-logo bank-logo">BBL</div>
+          <div class="pay-info"><div class="pay-name">โอนผ่านธนาคาร</div><div class="pay-detail">กรุงเทพ · กสิกร · ไทยพาณิชย์ · ออมสิน</div></div>
+          <div class="pay-radio"></div>
         </div>
-        <div class="info-divider"></div>
-        <div class="info-block">
-          <h2 class="info-h">ค่าธรรมเนียม</h2>
-          <p class="info-p">RibaClear เก็บค่าธรรมเนียมจากองค์กรผู้รับ ไม่ใช่จากผู้บริจาค เงินของคุณถึงองค์กรเต็มจำนวน</p>
+        <div class="pay-card" data-method="USDC บน Base">
+          <div class="pay-logo base-logo">BASE</div>
+          <div class="pay-info"><div class="pay-name">USDC บน Base</div><div class="pay-detail">Coinbase Base chain · ค่า gas ต่ำมาก</div></div>
+          <div class="pay-radio"></div>
+        </div>
+        <div class="pay-card" data-method="USDC บน Celo">
+          <div class="pay-logo celo-logo">CELO</div>
+          <div class="pay-info"><div class="pay-name">USDC บน Celo</div><div class="pay-detail">Celo chain · เหมาะกับการบริจาครายย่อย</div></div>
+          <div class="pay-radio"></div>
         </div>
       </div>
-    </section>
+      <div class="remark-box">
+        <span class="remark-icon">✓</span>
+        <span class="remark-txt">คุณบริจาคเต็มจำนวน — ค่าดำเนินการทั้งหมดองค์กรผู้รับเป็นผู้รับผิดชอบ</span>
+      </div>
+    </div>
+    <div class="confirm-bar">
+      <div class="total-row"><span class="total-label">ยอดรวม</span><span class="total-amount" id="total-amt">฿0</span></div>
+      <button class="btn-pay" id="btn-pay">ยืนยันการบริจาค</button>
+    </div>
+  </section>
 
-  </div><!-- /phone -->
+  <section class="screen" id="screen-success">
+    <div class="success-ring"><div class="success-check">✓</div></div>
+    <h2 class="success-title">บริจาคสำเร็จ<br>ขอบคุณ</h2>
+    <p class="success-sub">ดอกเบี้ย (Riba) ของคุณถูกส่งต่อ<br>เพื่อสร้างการเปลี่ยนแปลงแล้ว</p>
+    <div class="success-amount" id="success-amt">฿0</div>
+    <div class="success-to" id="success-to">—</div>
+    <div class="receipt-card">
+      <div class="rc-row"><span class="rc-label">เลขที่ทำรายการ</span><span class="rc-val" id="rc-ref">—</span></div>
+      <div class="rc-row"><span class="rc-label">วันที่</span><span class="rc-val" id="rc-date">—</span></div>
+      <div class="rc-row"><span class="rc-label">วิธีชำระ</span><span class="rc-val" id="rc-method">—</span></div>
+      <div class="rc-row"><span class="rc-label">สถานะ</span><span class="rc-val rc-success">สำเร็จ ✓</span></div>
+    </div>
+    <button class="btn-home" id="btn-home">กลับหน้าหลัก</button>
+  </section>
 
-  <script src="app.js"></script>
+  <section class="screen" id="screen-info">
+    <div class="top-bar">
+      <button class="back-btn" id="back-info">←</button>
+      <div class="bar-title">ดอกเบี้ย (Riba) คืออะไร?</div>
+    </div>
+    <div class="info-content">
+      <div><h2 class="info-h">ดอกเบี้ย (Riba) คืออะไร?</h2><p class="info-p">ในหลักอิสลาม การรับดอกเบี้ยจากธนาคารเป็นสิ่งต้องห้าม (Haram) แต่มุสลิมที่มีบัญชีธนาคารทั่วไปก็หลีกเลี่ยงไม่ได้ที่จะได้รับดอกเบี้ย</p></div>
+      <div class="info-divider"></div>
+      <div>
+        <h2 class="info-h">ดอกเบี้ย (Riba) ใช้ทำอะไรได้บ้าง?</h2>
+        <div class="rule-row"><span class="rule-label rule-ok">ทำได้</span><span class="rule-txt">ปลดหนี้, ช่วยคนยากจน, สาธารณสุข, การศึกษา, ถนน, ห้องน้ำ, สาธารณูปโภค</span></div>
+        <div class="rule-row"><span class="rule-label rule-no">ทำไม่ได้</span><span class="rule-txt">สร้างมัสยิด, พิมพ์อัลกุรอาน, ใช้ประโยชน์ส่วนตัว</span></div>
+      </div>
+      <div class="info-divider"></div>
+      <div><h2 class="info-h">การบริจาคดอกเบี้ย (Riba) ได้บุญไหม?</h2><p class="info-p">ไม่นับเป็นบุญทางศาสนา แต่เป็นการเคลียร์เงินที่ต้องห้าม (Haram) ออกจากชีวิตอย่างถูกต้อง ซึ่งเป็นสิ่งที่พึงกระทำ</p></div>
+      <div class="info-divider"></div>
+      <div><h2 class="info-h">ค่าธรรมเนียม</h2><p class="info-p">RibaClear เก็บค่าธรรมเนียมจากองค์กรผู้รับ ไม่ใช่จากผู้บริจาค ดอกเบี้ย (Riba) ของคุณถึงองค์กรเต็มทุกบาททุกสตางค์</p></div>
+    </div>
+  </section>
+
+</div>
+<script>
+(function(){
+'use strict';
+var s={orgs:new Set(),amount:0,method:'Thai QR Payment'};
+function show(id){
+  document.querySelectorAll('.screen').forEach(function(el){el.classList.remove('active')});
+  var t=document.getElementById('screen-'+id);
+  if(t){t.classList.add('active');t.scrollTop=0;window.scrollTo(0,0)}
+}
+function fmt(n){return n.toLocaleString('th-TH')}
+function san(v){var n=parseFloat(v);if(!isFinite(n)||n<0)return 0;return Math.min(Math.floor(n),1000000)}
+function updSplit(){
+  var amt=san(document.getElementById('amount-input').value);
+  s.amount=amt;
+  var n=s.orgs.size||1;
+  var sa=document.getElementById('split-amt');
+  var ta=document.getElementById('total-amt');
+  if(sa)sa.textContent=amt>0?'฿'+fmt(Math.round(amt/n))+'/องค์กร':'—';
+  if(ta)ta.textContent=amt>0?'฿'+fmt(amt):'฿0';
+}
+document.getElementById('btn-donate').addEventListener('click',function(){show('orgs')});
+document.getElementById('btn-info').addEventListener('click',function(){show('info')});
+document.getElementById('back-orgs').addEventListener('click',function(){show('home')});
+document.getElementById('back-checkout').addEventListener('click',function(){show('orgs')});
+document.getElementById('back-info').addEventListener('click',function(){show('home')});
+document.querySelectorAll('.org-card').forEach(function(card){
+  card.addEventListener('click',function(){
+    var name=card.dataset.name;
+    if(s.orgs.has(name)){s.orgs.delete(name);card.classList.remove('selected')}
+    else{s.orgs.add(name);card.classList.add('selected')}
+    document.getElementById('btn-next').disabled=s.orgs.size===0;
+  });
+});
+document.getElementById('btn-next').addEventListener('click',function(){
+  if(s.orgs.size===0)return;
+  var c=document.getElementById('summary-orgs');
+  c.replaceChildren();
+  document.querySelectorAll('.org-card.selected').forEach(function(card){
+    var row=document.createElement('div');row.className='summary-org';
+    var ic=document.createElement('div');ic.className='s-icon';ic.textContent=card.dataset.icon||'';
+    var nm=document.createElement('span');nm.className='s-name';nm.textContent=card.dataset.name||'';
+    row.appendChild(ic);row.appendChild(nm);c.appendChild(row);
+  });
+  document.getElementById('split-info').hidden=s.orgs.size<=1;
+  updSplit();show('checkout');
+});
+document.getElementById('amount-input').addEventListener('input',updSplit);
+document.querySelectorAll('.preset').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var val=parseInt(btn.dataset.val,10);
+    document.getElementById('amount-input').value=val;
+    s.amount=val;
+    document.querySelectorAll('.preset').forEach(function(p){p.classList.toggle('picked',parseInt(p.dataset.val,10)===val)});
+    updSplit();
+  });
+});
+document.querySelectorAll('.pay-card').forEach(function(card){
+  card.addEventListener('click',function(){
+    document.querySelectorAll('.pay-card').forEach(function(c){c.classList.remove('selected')});
+    card.classList.add('selected');
+    s.method=card.dataset.method||'Thai QR Payment';
+  });
+});
+document.getElementById('btn-pay').addEventListener('click',function(){
+  var amt=s.amount;
+  if(amt<=0){document.getElementById('amount-input').focus();return}
+  var names=Array.from(s.orgs);
+  document.getElementById('success-amt').textContent='฿'+fmt(amt);
+  document.getElementById('success-to').textContent=names.length>1?names.length+' องค์กร':(names[0]||'—');
+  var ts=Date.now().toString(36).toUpperCase();
+  var rnd=Math.random().toString(36).slice(2,6).toUpperCase();
+  document.getElementById('rc-ref').textContent='RC-'+ts+'-'+rnd;
+  document.getElementById('rc-date').textContent=new Date().toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('rc-method').textContent=s.method;
+  show('success');
+});
+document.getElementById('btn-home').addEventListener('click',function(){
+  s.orgs.clear();s.amount=0;s.method='Thai QR Payment';
+  document.querySelectorAll('.org-card').forEach(function(c){c.classList.remove('selected')});
+  document.getElementById('btn-next').disabled=true;
+  document.getElementById('amount-input').value='';
+  document.querySelectorAll('.preset').forEach(function(p){p.classList.remove('picked')});
+  document.querySelectorAll('.pay-card').forEach(function(c){c.classList.remove('selected')});
+  document.querySelector('.pay-card').classList.add('selected');
+  show('home');
+});
+})();
+</script>
 </body>
 </html>
